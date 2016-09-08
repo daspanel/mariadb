@@ -1,0 +1,27 @@
+
+version: '2'
+services:
+    daspanel-mariadb:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: daspanel/mariadb
+        volumes:
+            - daspanel-data:/opt/daspanel/data
+        networks:
+            - backend
+        env_file:
+            - daspanel.env
+
+volumes:
+    daspanel-data:
+        external:
+            name: daspanel-data
+
+networks:  
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+

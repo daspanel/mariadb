@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+exec /usr/bin/mysqld_safe --user=mysql --console --port=3306
+
+
