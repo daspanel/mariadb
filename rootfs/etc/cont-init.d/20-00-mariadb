@@ -186,7 +186,22 @@ fi
 /usr/bin/mysqladmin shutdown -p"$ROOT_PASSWORD"
 
 # mark configured
+echo "daspanel-mariadb: Mark mariadb as configured"
 touch /opt/daspanel/data/$DASPANEL_GUUID/mysql/mysql.configured
+{ 
+    echo ""; 
+    echo ""; 
+    echo "MySql Root Password:";
+    echo "   $ROOT_PASSWORD";
+    echo ""; 
+    echo "MySql Additional User:";
+    echo "   $MARIADB_USER";
+    echo "";
+    echo "MySql Additional User Password:";
+    echo "   $MARIADB_PASSWORD";
+    echo ""; 
+    echo ""; 
+} > /opt/daspanel/data/$DASPANEL_GUUID/mysql/mysql.configured
 
 
 
