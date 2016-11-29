@@ -10,11 +10,11 @@ services:
             - daspanel-data:/opt/daspanel/data
         networks:
             - backend
-        env_file:
-            - daspanel.env
         ports:
             - "3306:3306"
-
+        env_file:
+            - daspanel.env
+            - smtp.env
 volumes:
     daspanel-data:
         external:
