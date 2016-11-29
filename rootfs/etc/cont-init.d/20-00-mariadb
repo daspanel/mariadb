@@ -56,7 +56,7 @@ chown -R mysql:mysql /var/log/mysql
   -o /etc/mysql/my.cnf \
   /opt/daspanel/conf-templates/etc/mysql/my.cnf.tmpl
 
-if [ -f /opt/daspanel/data/$DASPANEL_GUUID/mysql/mysql.configured ]; then
+if [ -f /opt/daspanel/data/$DASPANEL_GUUID/containers/mysql.configured ]; then
   exit 0
 fi
 
@@ -187,7 +187,13 @@ fi
 
 # mark configured
 echo "daspanel-mariadb: Mark mariadb as configured"
-touch /opt/daspanel/data/$DASPANEL_GUUID/mysql/mysql.configured
+
+# Save details about configuration for late use
+if [ ! -d "/opt/daspanel/data/$DASPANEL_GUUID/containers" ]; then
+	mkdir -p /opt/daspanel/data/$DASPANEL_GUUID/containers
+fi
+
+touch /opt/daspanel/data/$DASPANEL_GUUID/containers/mysql.configured
 { 
     echo ""; 
     echo ""; 
@@ -199,9 +205,14 @@ touch /opt/daspanel/data/$DASPANEL_GUUID/mysql/mysql.configured
     echo "";
     echo "MySql Additional User Password:";
     echo "   $MARIADB_PASSWORD";
+    if [ ! -z "$MARIADB_REMOTE_ROOT" ]; then
+        echo "";
+        echo "Root User Remote Access:";
+        echo "   Yes";
+    fi
     echo ""; 
     echo ""; 
-} > /opt/daspanel/data/$DASPANEL_GUUID/mysql/mysql.configured
+} > /opt/daspanel/data/$DASPANEL_GUUID/containers/mysql.configured
 
 
 
