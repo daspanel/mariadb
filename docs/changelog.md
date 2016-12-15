@@ -48,9 +48,29 @@ Released by Abner G Jacobsen, Tue 29 Nov 2016 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
 ______________
 
-### 0.1.5
+### mariadb-0.1.5
 __Changes__
 
+- See changes in CHANGELOG.md
+- bumped to version 0.1.5
+- See changes in CHANGELOG.md
+- bumped to version 0.1.4
+- Code cleanup.
+
+__Contributors__
+
+- Abner G Jacobsen
+
+Released by Abner G Jacobsen, Thu 15 Dec 2016 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+______________
+
+### 0.1.6
+__Changes__
+
+- bumped to version 0.1.6
+- Added missing file.
+- See changes in CHANGELOG.md
 - bumped to version 0.1.5
 - See changes in CHANGELOG.md
 - bumped to version 0.1.4
@@ -73,7 +93,7 @@ __Contributors__
 - Abner G Jacobsen
 
 Released by Abner G Jacobsen, Thu 15 Dec 2016 -
-[see the diff](https://github.com/admindaspanel/mariadb/compare/3fd8c18878784ff7e648ae238b98209129c5f699...0.1.5#diff)
+[see the diff](https://github.com/admindaspanel/mariadb/compare/3fd8c18878784ff7e648ae238b98209129c5f699...0.1.6#diff)
 ______________
 
 
