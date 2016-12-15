@@ -30,9 +30,30 @@ Released by Abner G Jacobsen, Thu 08 Sep 2016 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
 ______________
 
-### 0.1.3
+### mariadb-0.1.3
 __Changes__
 
+- See changes in CHANGELOG.md
+- bumped to version 0.1.3
+- Chnaged where info about configuration is saved.
+- Chhanges needed to use alpine-base with ssmtp.
+- Initializations script save infor about user and password to late use.
+- Changed naming convention for /etc/cont-init.d to make sure initialization scripts are executed in correct order for all Daspanel containers ecosystem.
+
+__Contributors__
+
+- Abner G Jacobsen
+
+Released by Abner G Jacobsen, Tue 29 Nov 2016 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+______________
+
+### 0.1.4
+__Changes__
+
+- bumped to version 0.1.4
+- Code cleanup.
+- See changes in CHANGELOG.md
 - bumped to version 0.1.3
 - Chnaged where info about configuration is saved.
 - Chhanges needed to use alpine-base with ssmtp.
@@ -49,8 +70,8 @@ __Contributors__
 
 - Abner G Jacobsen
 
-Released by Abner G Jacobsen, Tue 29 Nov 2016 -
-[see the diff](https://github.com/admindaspanel/mariadb/compare/3fd8c18878784ff7e648ae238b98209129c5f699...0.1.3#diff)
+Released by Abner G Jacobsen, Thu 15 Dec 2016 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/3fd8c18878784ff7e648ae238b98209129c5f699...0.1.4#diff)
 ______________
 
 
