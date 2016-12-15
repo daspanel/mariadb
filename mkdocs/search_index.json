@@ -247,7 +247,7 @@
         }, 
         {
             "location": "/changelog/", 
-            "text": "Changelog - admindaspanel / mariadb\n\n\nmariadb-0.1.1\n\n\nChanges\n\n\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.1\n\n\nfirst commit\n\n\n\n\nContributors\n\n\n\n\nAbner G Jacobsen\n\n\n\n\nReleased by Abner G Jacobsen, Thu 08 Sep 2016 -\n\nsee the diff\n\n\n\n\n0.1.2\n\n\nChanges\n\n\n\n\nbumped to version 0.1.2\n\n\nAdded ports section to docker-compose.yml\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.1\n\n\nfirst commit\n\n\n\n\nContributors\n\n\n\n\nAbner G Jacobsen\n\n\n\n\nReleased by Abner G Jacobsen, Thu 08 Sep 2016 -\n\nsee the diff", 
+            "text": "Changelog - admindaspanel / mariadb\n\n\nmariadb-0.1.1\n\n\nChanges\n\n\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.1\n\n\nfirst commit\n\n\n\n\nContributors\n\n\n\n\nAbner G Jacobsen\n\n\n\n\nReleased by Abner G Jacobsen, Thu 08 Sep 2016 -\n\nsee the diff\n\n\n\n\nmariadb-0.1.2\n\n\nChanges\n\n\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.2\n\n\nAdded ports section to docker-compose.yml\n\n\n\n\nContributors\n\n\n\n\nAbner G Jacobsen\n\n\n\n\nReleased by Abner G Jacobsen, Thu 08 Sep 2016 -\n\nsee the diff\n\n\n\n\nmariadb-0.1.3\n\n\nChanges\n\n\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.3\n\n\nChnaged where info about configuration is saved.\n\n\nChhanges needed to use alpine-base with ssmtp.\n\n\nInitializations script save infor about user and password to late use.\n\n\nChanged naming convention for /etc/cont-init.d to make sure initialization scripts are executed in correct order for all Daspanel containers ecosystem.\n\n\n\n\nContributors\n\n\n\n\nAbner G Jacobsen\n\n\n\n\nReleased by Abner G Jacobsen, Tue 29 Nov 2016 -\n\nsee the diff\n\n\n\n\nmariadb-0.1.5\n\n\nChanges\n\n\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.5\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.4\n\n\nCode cleanup.\n\n\n\n\nContributors\n\n\n\n\nAbner G Jacobsen\n\n\n\n\nReleased by Abner G Jacobsen, Thu 15 Dec 2016 -\n\nsee the diff\n\n\n\n\n0.1.6\n\n\nChanges\n\n\n\n\nbumped to version 0.1.6\n\n\nAdded missing file.\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.5\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.4\n\n\nCode cleanup.\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.3\n\n\nChnaged where info about configuration is saved.\n\n\nChhanges needed to use alpine-base with ssmtp.\n\n\nInitializations script save infor about user and password to late use.\n\n\nChanged naming convention for /etc/cont-init.d to make sure initialization scripts are executed in correct order for all Daspanel containers ecosystem.\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.2\n\n\nAdded ports section to docker-compose.yml\n\n\nSee changes in CHANGELOG.md\n\n\nbumped to version 0.1.1\n\n\nfirst commit\n\n\n\n\nContributors\n\n\n\n\nAbner G Jacobsen\n\n\n\n\nReleased by Abner G Jacobsen, Thu 15 Dec 2016 -\n\nsee the diff", 
             "title": "Changelog"
         }, 
         {
@@ -261,9 +261,24 @@
             "title": "mariadb-0.1.1"
         }, 
         {
-            "location": "/changelog/#012", 
-            "text": "Changes   bumped to version 0.1.2  Added ports section to docker-compose.yml  See changes in CHANGELOG.md  bumped to version 0.1.1  first commit   Contributors   Abner G Jacobsen   Released by Abner G Jacobsen, Thu 08 Sep 2016 - see the diff", 
-            "title": "0.1.2"
+            "location": "/changelog/#mariadb-012", 
+            "text": "Changes   See changes in CHANGELOG.md  bumped to version 0.1.2  Added ports section to docker-compose.yml   Contributors   Abner G Jacobsen   Released by Abner G Jacobsen, Thu 08 Sep 2016 - see the diff", 
+            "title": "mariadb-0.1.2"
+        }, 
+        {
+            "location": "/changelog/#mariadb-013", 
+            "text": "Changes   See changes in CHANGELOG.md  bumped to version 0.1.3  Chnaged where info about configuration is saved.  Chhanges needed to use alpine-base with ssmtp.  Initializations script save infor about user and password to late use.  Changed naming convention for /etc/cont-init.d to make sure initialization scripts are executed in correct order for all Daspanel containers ecosystem.   Contributors   Abner G Jacobsen   Released by Abner G Jacobsen, Tue 29 Nov 2016 - see the diff", 
+            "title": "mariadb-0.1.3"
+        }, 
+        {
+            "location": "/changelog/#mariadb-015", 
+            "text": "Changes   See changes in CHANGELOG.md  bumped to version 0.1.5  See changes in CHANGELOG.md  bumped to version 0.1.4  Code cleanup.   Contributors   Abner G Jacobsen   Released by Abner G Jacobsen, Thu 15 Dec 2016 - see the diff", 
+            "title": "mariadb-0.1.5"
+        }, 
+        {
+            "location": "/changelog/#016", 
+            "text": "Changes   bumped to version 0.1.6  Added missing file.  See changes in CHANGELOG.md  bumped to version 0.1.5  See changes in CHANGELOG.md  bumped to version 0.1.4  Code cleanup.  See changes in CHANGELOG.md  bumped to version 0.1.3  Chnaged where info about configuration is saved.  Chhanges needed to use alpine-base with ssmtp.  Initializations script save infor about user and password to late use.  Changed naming convention for /etc/cont-init.d to make sure initialization scripts are executed in correct order for all Daspanel containers ecosystem.  See changes in CHANGELOG.md  bumped to version 0.1.2  Added ports section to docker-compose.yml  See changes in CHANGELOG.md  bumped to version 0.1.1  first commit   Contributors   Abner G Jacobsen   Released by Abner G Jacobsen, Thu 15 Dec 2016 - see the diff", 
+            "title": "0.1.6"
         }
     ]
 }
