@@ -171,7 +171,8 @@ if [ ! -d /var/lib/mysql/mysql ]; then
 
   if [ ! -z "$MARIADB_REMOTE_ROOT" ]; then
      echo "Grant root access from remote host"
-     echo "GRANT ALL ON *.* to 'root'@'%' IDENTIFIED BY '$ROOT_PASSWORD' ;" | /usr/bin/mysql
+     echo "GRANT ALL ON *.* to 'root'@'%' IDENTIFIED BY '$ROOT_PASSWORD'; FLUSH PRIVILEGES;" | /usr/bin/mysql
+     echo "GRANT GRANT OPTION ON *.* to 'root'@'%' IDENTIFIED BY '$ROOT_PASSWORD'; FLUSH PRIVILEGES;" | /usr/bin/mysql
   fi
 
   if [ ! -z "$ROOT_PASSWORD" ]; then
