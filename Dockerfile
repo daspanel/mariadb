@@ -9,7 +9,7 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 RUN \
 
     # Install MariaDB
-    apk add --no-cache --update mariadb-common mariadb mariadb-client \
+    apk add --no-cache --update mariadb mariadb-client \
 
     # Cleanup
     && rm -rf /var/cache/apk/* \

@@ -9,6 +9,8 @@ if [ -z "$DASPANEL_SYS_UUID" ]; then
 fi
 
 export DASPANEL_SYS_PASSWORD=`cat /opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysconfig.json | /usr/bin/jq -r '.sys.password'`
+export DASPANEL_SYS_HOSTNAME=`cat /opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysconfig.json | /usr/bin/jq -r '.sys.hostname'`
+
 
 [[ -z "${MARIADB_DEFAULT_CHARACTER_SET}" ]] && export MARIADB_DEFAULT_CHARACTER_SET="utf8"
 [[ -z "${MARIADB_CHARACTER_SET_SERVER}" ]] && export MARIADB_CHARACTER_SET_SERVER="utf8"
@@ -32,6 +34,13 @@ export DASPANEL_SYS_PASSWORD=`cat /opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysco
 [[ -z "${MARIADB_SORT_BUFFER_SIZE}" ]] && export MARIADB_SORT_BUFFER_SIZE="20M"
 [[ -z "${MARIADB_READ_BUFFER}" ]] && export MARIADB_READ_BUFFER="2M"
 [[ -z "${MARIADB_WRITE_BUFFER}" ]] && export MARIADB_WRITE_BUFFER="2M"
+
+#CFG_JSON=$(jq -n -c -M \
+#    '{
+#        "MARIADB_DEFAULT_CHARACTER_SET": "{{ .Env.DEFAULT_CHARACTER_SET }}"
+#    }' \
+#)
+#printf $CFG_JSON > /tmp/mariadb.json
 
 # Setup MySql root password == daspanel master password if not set using env variable
 if [ -z "$MARIADB_ROOT_PASSWORD" ]; then
@@ -59,9 +68,11 @@ if [ ! -d "/var/log/mysql" ]; then
 fi
 chown -R daspanel:daspanel /var/log/mysql
 
-/usr/bin/templater -d -p mariadb \
-  -o /etc/mysql/my.cnf \
-  /opt/daspanel/conf-templates/etc/mysql/my.cnf.tmpl
+/usr/bin/gomplate -d cfg=file:///opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysconfig.json \
+    < /opt/daspanel/conf-templates/etc/mysql/my.cnf.tmpl \
+    > /etc/mysql/my.cnf
+
+chown daspanel /etc/mysql/my.cnf
 
 if [ -f /opt/daspanel/data/$DASPANEL_SYS_UUID/containers/mysql.configured ]; then
   exit 0
@@ -131,7 +142,7 @@ if [ ! -d /var/lib/mysql/mysql ]; then
   /usr/bin/mysql_install_db --datadir=/var/lib/mysql --user=daspanel 2> /dev/null
 
   # start database for config
-  /usr/bin/mysqld_safe --defaults-file=/etc/mysql/my.cnf --datadir=/var/lib/mysql/  &
+  su-exec daspanel:daspanel /usr/bin/mysqld_safe --defaults-file=/etc/mysql/my.cnf --datadir=/var/lib/mysql/  &
 
   # wait for it to start
   echo -n "wait for db to start"     
@@ -201,7 +212,7 @@ if [ ! -d "/opt/daspanel/data/$DASPANEL_SYS_UUID/containers" ]; then
 	mkdir -p /opt/daspanel/data/$DASPANEL_SYS_UUID/containers
 fi
 
-touch /opt/daspanel/data/$DASPANEL_SYS_UUID/containers/mysql.configured
+mkdir -p /opt/daspanel/data/$DASPANEL_SYS_UUID/containers
 { 
     echo ""; 
     echo ""; 
