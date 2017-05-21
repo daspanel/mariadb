@@ -8,9 +8,30 @@ if [ -z "$DASPANEL_SYS_UUID" ]; then
     exit 1
 fi
 
-export DASPANEL_SYS_PASSWORD=`cat /opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysconfig.json | /usr/bin/jq -r '.sys.password'`
-export DASPANEL_SYS_HOSTNAME=`cat /opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysconfig.json | /usr/bin/jq -r '.sys.hostname'`
+case "$DASPANEL_WAIT_FOR_API" in
+    YES|yes|Yes)
+        echo "[DASPANEL] Waiting 60 seconds for API: $0" >&2
+        /opt/daspanel/bin/wait-for-api -t 60 $DASPANEL_SYS_APISERVER/info/status
+        result=$?
+        if [ ! $result -eq 0 ] ; then
+            echo "[DASPANEL] Can not connect to API: $DASPANEL_SYS_APISERVER/info/status" >&2
+            exit 1
+        fi
+        ;;
+    *) 
+        echo "[DASPANEL] Container not need to wait API become online: $0" >&2
+        exit 1
+        ;;
+esac
 
+# Get system configs from API server and set env variables
+SYSCFG=$(wget -O- --header=Content-Type:application/json --header="Authorization: $DASPANEL_SYS_APIKEY" "$DASPANEL_SYS_APISERVER/tenants/$DASPANEL_SYS_UUID")
+result=$?
+if [ ! $result -eq 0 ] ; then
+    echo "[DASPANEL] Unable to get tenant configuration from API server: $0" >&2
+    exit 1
+fi
+export DASPANEL_SYS_PASSWORD=`echo $SYSCFG | /usr/bin/jq -r '.sys.password'`
 
 [[ -z "${MARIADB_DEFAULT_CHARACTER_SET}" ]] && export MARIADB_DEFAULT_CHARACTER_SET="utf8"
 [[ -z "${MARIADB_CHARACTER_SET_SERVER}" ]] && export MARIADB_CHARACTER_SET_SERVER="utf8"
@@ -34,13 +55,6 @@ export DASPANEL_SYS_HOSTNAME=`cat /opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysco
 [[ -z "${MARIADB_SORT_BUFFER_SIZE}" ]] && export MARIADB_SORT_BUFFER_SIZE="20M"
 [[ -z "${MARIADB_READ_BUFFER}" ]] && export MARIADB_READ_BUFFER="2M"
 [[ -z "${MARIADB_WRITE_BUFFER}" ]] && export MARIADB_WRITE_BUFFER="2M"
-
-#CFG_JSON=$(jq -n -c -M \
-#    '{
-#        "MARIADB_DEFAULT_CHARACTER_SET": "{{ .Env.DEFAULT_CHARACTER_SET }}"
-#    }' \
-#)
-#printf $CFG_JSON > /tmp/mariadb.json
 
 # Setup MySql root password == daspanel master password if not set using env variable
 if [ -z "$MARIADB_ROOT_PASSWORD" ]; then
@@ -68,8 +82,9 @@ if [ ! -d "/var/log/mysql" ]; then
 fi
 chown -R daspanel:daspanel /var/log/mysql
 
-/usr/bin/gomplate -d cfg=file:///opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysconfig.json \
-    < /opt/daspanel/conf-templates/etc/mysql/my.cnf.tmpl \
+/usr/bin/gomplate -d cfg=$DASPANEL_SYS_APISERVER/tenants/$DASPANEL_SYS_UUID \
+    -H "cfg=Authorization: $DASPANEL_SYS_APIKEY" \
+    < /opt/daspanel/conf-templates/mysql/my.cnf.tmpl \
     > /etc/mysql/my.cnf
 
 chown daspanel /etc/mysql/my.cnf
