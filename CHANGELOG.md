@@ -3,15 +3,8 @@
 ### mariadb-0.1.1
 __Changes__
 
-- See changes in CHANGELOG.md
-- bumped to version 0.1.1
-- first commit
 
-__Contributors__
-
-- Abner G Jacobsen
-
-Released by Abner G Jacobsen, Thu 08 Sep 2016 -
+Released by N/A, Fri 30 Jun 2017 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
 ______________
 
@@ -46,6 +39,21 @@ __Contributors__
 
 Released by Abner G Jacobsen, Tue 29 Nov 2016 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+______________
+
+### 0.3.0
+__Changes__
+
+- bumped to version 0.3.0
+- Removed dependence from daspanel/alpine-base.
+
+__Contributors__
+
+- Abner G Jacobsen
+- admindaspanel
+
+Released by Abner G Jacobsen, Fri 30 Jun 2017 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/0.2.0...0.3.0#diff)
 ______________
 
 ### mariadb-0.1.5
@@ -129,6 +137,7 @@ ______________
 ### 0.2.0
 __Changes__
 
+- See changes in CHANGELOG.md
 - bumped to version 0.2.0
 - Changed version numbering system.
 - Merge pull request #1 from daspanel/sites-config
