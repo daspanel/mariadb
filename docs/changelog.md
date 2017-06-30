@@ -41,11 +41,27 @@ Released by Abner G Jacobsen, Tue 29 Nov 2016 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
 ______________
 
-### 0.3.0
+### mariadb-0.1.9
 __Changes__
 
-- bumped to version 0.3.0
-- Removed dependence from daspanel/alpine-base.
+- See changes in CHANGELOG.md
+- bumped to version 0.1.9
+- Make container compatible with new Daspanel init/configuration system
+- Include storage access info in email after successfull start.
+
+__Contributors__
+
+- Abner G Jacobsen
+
+Released by Abner G Jacobsen, Wed 15 Mar 2017 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+______________
+
+### 0.4.0
+__Changes__
+
+- bumped to version 0.4.0
+- Fixed location of Gomplate.
 
 __Contributors__
 
@@ -53,7 +69,7 @@ __Contributors__
 - admindaspanel
 
 Released by Abner G Jacobsen, Fri 30 Jun 2017 -
-[see the diff](https://github.com/admindaspanel/mariadb/compare/0.2.0...0.3.0#diff)
+[see the diff](https://github.com/admindaspanel/mariadb/compare/0.3.0...0.4.0#diff)
 ______________
 
 ### mariadb-0.1.5
@@ -118,20 +134,19 @@ Released by Abner G Jacobsen, Mon 02 Jan 2017 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
 ______________
 
-### mariadb-0.1.9
+### 0.3.0
 __Changes__
 
 - See changes in CHANGELOG.md
-- bumped to version 0.1.9
-- Make container compatible with new Daspanel init/configuration system
-- Include storage access info in email after successfull start.
+- bumped to version 0.3.0
+- Removed dependence from daspanel/alpine-base.
 
 __Contributors__
 
 - Abner G Jacobsen
 
-Released by Abner G Jacobsen, Wed 15 Mar 2017 -
-[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+Released by Abner G Jacobsen, Fri 30 Jun 2017 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/0.2.0...0.3.0#diff)
 ______________
 
 ### 0.2.0
