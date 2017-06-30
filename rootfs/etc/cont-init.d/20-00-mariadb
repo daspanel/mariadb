@@ -31,7 +31,7 @@ if [ ! $result -eq 0 ] ; then
     echo "[DASPANEL] Unable to get tenant configuration from API server: $0" >&2
     exit 1
 fi
-export DASPANEL_SYS_PASSWORD=`echo $SYSCFG | /usr/bin/jq -r '.sys.password'`
+export DASPANEL_SYS_PASSWORD=`echo $SYSCFG | /opt/daspanel/bin/jq -r '.sys.password'`
 
 [[ -z "${MARIADB_DEFAULT_CHARACTER_SET}" ]] && export MARIADB_DEFAULT_CHARACTER_SET="utf8"
 [[ -z "${MARIADB_CHARACTER_SET_SERVER}" ]] && export MARIADB_CHARACTER_SET_SERVER="utf8"
