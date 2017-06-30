@@ -82,7 +82,7 @@ if [ ! -d "/var/log/mysql" ]; then
 fi
 chown -R daspanel:daspanel /var/log/mysql
 
-/usr/bin/gomplate -d cfg=$DASPANEL_SYS_APISERVER/tenants/$DASPANEL_SYS_UUID \
+/opt/daspanel/bin/gomplate -d cfg=$DASPANEL_SYS_APISERVER/tenants/$DASPANEL_SYS_UUID \
     -H "cfg=Authorization: $DASPANEL_SYS_APIKEY" \
     < /opt/daspanel/conf-templates/mysql/my.cnf.tmpl \
     > /etc/mysql/my.cnf
