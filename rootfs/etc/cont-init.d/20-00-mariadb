@@ -1,5 +1,8 @@
 #!/usr/bin/with-contenv sh
 
+export DASPANEL_CONTAINER_TYPE="mysql"
+printf $DASPANEL_CONTAINER_TYPE > /var/run/s6/container_environment/DASPANEL_CONTAINER_TYPE
+
 # Installation UUID must be informed
 if [ -z "$DASPANEL_SYS_UUID" ]; then
     echo "***"
@@ -32,6 +35,8 @@ if [ ! $result -eq 0 ] ; then
     exit 1
 fi
 export DASPANEL_SYS_PASSWORD=`echo $SYSCFG | /opt/daspanel/bin/jq -r '.sys.password'`
+export DASPANEL_MYSQL_USER=`echo $SYSCFG | /opt/daspanel/bin/jq -r '.mysql.user'`
+export DASPANEL_MYSQL_PASSWORD=`echo $SYSCFG | /opt/daspanel/bin/jq -r '.mysql.password'`
 
 [[ -z "${MARIADB_DEFAULT_CHARACTER_SET}" ]] && export MARIADB_DEFAULT_CHARACTER_SET="utf8"
 [[ -z "${MARIADB_CHARACTER_SET_SERVER}" ]] && export MARIADB_CHARACTER_SET_SERVER="utf8"
@@ -90,6 +95,7 @@ chown -R daspanel:daspanel /var/log/mysql
 chown daspanel /etc/mysql/my.cnf
 
 if [ -f /opt/daspanel/data/$DASPANEL_SYS_UUID/containers/mysql.configured ]; then
+  cp /opt/daspanel/data/$DASPANEL_SYS_UUID/mysql/.my.cnf /root/.my.cnf
   exit 0
 fi
 
@@ -129,25 +135,28 @@ fi
 
 # determine root password
 unset ROOT_PASSWORD
+ROOT_PASSWORD="$MARIADB_ROOT_PASSWORD"
+export ROOT_PASSWORD
+echo "Ignoring MARIADB_RANDOM_ROOT_PASSWORD"
 
-if [ ! -z "$MARIADB_RANDOM_ROOT_PASSWORD" ]; then
-  ROOT_PASSWORD=`date +%s | sha256sum | base64 | head -c 16 ; echo`
-  echo "set MySql root password to random password $ROOT_PASSWORD"
-else
-  if [ ! -z "$MARIADB_ROOT_PASSWORD" ]; then
-      echo "seting root password to $MARIADB_ROOT_PASSWORD"
-      ROOT_PASSWORD="$MARIADB_ROOT_PASSWORD"
-  else
-      ROOT_PASSWORD=`date +%s | sha256sum | base64 | head -c 16 ; echo`
-      echo "set MySql root password to random password $ROOT_PASSWORD"
-  fi   
-fi
+#if [ ! -z "$MARIADB_RANDOM_ROOT_PASSWORD" ]; then
+#  ROOT_PASSWORD=`date +%s | sha256sum | base64 | head -c 16 ; echo`
+#  echo "set MySql root password to random password $ROOT_PASSWORD"
+#else
+#  if [ ! -z "$MARIADB_ROOT_PASSWORD" ]; then
+#      echo "seting root password to $MARIADB_ROOT_PASSWORD"
+#      ROOT_PASSWORD="$MARIADB_ROOT_PASSWORD"
+#  else
+#      ROOT_PASSWORD=`date +%s | sha256sum | base64 | head -c 16 ; echo`
+#      echo "set MySql root password to random password $ROOT_PASSWORD"
+#  fi   
+#fi
 
 if [ -z "$ROOT_PASSWORD" ]; then
   if [ ! -z "$MARIADB_ALLOW_EMPTY_PASSWORD" ]; then
      echo "WARNING: It is a security risk running a database without a root password"
   else
-     echo "ERROR: No root password (-e MARIADB_ROOT_PASSWORD=<pwd>) defined, use -e MARIADB_ALLOW_EMPTY_PASSWORD=yes to allow"
+     echo "ERROR: No root password (-e MARIADB_ROOT_PASSWORD=<pwd>) defined."
      exit 1
   fi
 fi
@@ -202,6 +211,24 @@ if [ ! -d /var/lib/mysql/mysql ]; then
      fi
   fi
 
+  if [ ! -z $DASPANEL_MYSQL_USER ]; then
+     echo "Creating user $DASPANEL_MYSQL_USER"
+     echo "CREATE USER '$DASPANEL_MYSQL_USER'@'%' IDENTIFIED BY '$DASPANEL_MYSQL_PASSWORD' ;FLUSH PRIVILEGES;" | /usr/bin/mysql
+     echo "CREATE USER '$DASPANEL_MYSQL_USER'@'localhost' IDENTIFIED BY '$DASPANEL_MYSQL_PASSWORD' ;FLUSH PRIVILEGES;" | /usr/bin/mysql
+     echo "GRANT ALL ON *.* to '$DASPANEL_MYSQL_USER'@'localhost' IDENTIFIED BY '$DASPANEL_MYSQL_PASSWORD'; FLUSH PRIVILEGES;" | /usr/bin/mysql
+     echo "GRANT GRANT OPTION ON *.* to '$DASPANEL_MYSQL_USER'@'localhost' IDENTIFIED BY '$DASPANEL_MYSQL_PASSWORD'; FLUSH PRIVILEGES;" | /usr/bin/mysql
+
+     echo "Grant $DASPANEL_MYSQL_USER access from remote host"
+     echo "GRANT ALL ON *.* to '$DASPANEL_MYSQL_USER'@'%' IDENTIFIED BY '$DASPANEL_MYSQL_PASSWORD'; FLUSH PRIVILEGES;" | /usr/bin/mysql
+     echo "GRANT GRANT OPTION ON *.* to '$DASPANEL_MYSQL_USER'@'%' IDENTIFIED BY '$DASPANEL_MYSQL_PASSWORD'; FLUSH PRIVILEGES;" | /usr/bin/mysql
+
+     #if [ ! -z $MARIADB_DATABASE ]; then 
+     #  echo "Grating access for $DASPANEL_MYSQL_USER to $MARIADB_DATABASE"
+     #  echo "GRANT ALL ON $MARIADB_DATABASE.* TO '$DASPANEL_MYSQL_USER'@'%' ;FLUSH PRIVILEGES;" | /usr/bin/mysql 
+     #  echo "GRANT ALL ON $MARIADB_DATABASE.* TO '$DASPANEL_MYSQL_USER'@'localhost' ;FLUSH PRIVILEGES;" | /usr/bin/mysql 
+     #fi
+  fi
+
   if [ ! -z "$MARIADB_REMOTE_ROOT" ]; then
      echo "Grant root access from remote host"
      echo "GRANT ALL ON *.* to 'root'@'%' IDENTIFIED BY '$ROOT_PASSWORD'; FLUSH PRIVILEGES;" | /usr/bin/mysql
@@ -247,6 +274,15 @@ mkdir -p /opt/daspanel/data/$DASPANEL_SYS_UUID/containers
     echo ""; 
     echo ""; 
 } > /opt/daspanel/data/$DASPANEL_SYS_UUID/containers/mysql.configured
+
+# Save root password to allow mysql client access
+/opt/daspanel/bin/gomplate -d cfg=$DASPANEL_SYS_APISERVER/tenants/$DASPANEL_SYS_UUID \
+    -H "cfg=Authorization: $DASPANEL_SYS_APIKEY" \
+    < /opt/daspanel/conf-templates/mysql/client.cnf.tmpl \
+    > /opt/daspanel/data/$DASPANEL_SYS_UUID/mysql/.my.cnf
+
+cp /opt/daspanel/data/$DASPANEL_SYS_UUID/mysql/.my.cnf /root/.my.cnf
+chown daspanel:daspanel /opt/daspanel/data/$DASPANEL_SYS_UUID/mysql/.my.cnf
 
 # secure daspanel
 chown -R daspanel:daspanel /opt/daspanel/data
