@@ -10,7 +10,6 @@ pid-file = /var/run/mysqld/mysqld.pid
 bind-address = 0.0.0.0
 user=daspanel
 
-
 general_log_file = /var/log/mysql/mysql.log
 general_log = 1
 #long_query_time = 2
@@ -26,14 +25,37 @@ collation-server = {{getenv "MARIADB_COLLATION_SERVER" "utf8_general_ci"}}
 default_storage_engine = InnoDB
 skip_name_resolve
 skip-external-locking
-key_buffer_size = {{getenv "MARIADB_KEY_BUFFER_SIZE" "20M"}}
+
+#https://mariadb.com/resources/blog/starting-mysql-low-memory-virtual-machines
+performance_schema = off
+
+# innodb memory optimization for docker containers
+# http://www.tocker.ca/2014/03/10/configuring-mysql-to-use-minimal-memory.html
+innodb_buffer_pool_size = {{getenv "MARIADB_INNODB_BUFFER_POOL_SIZE" "5M"}}
+innodb_log_buffer_size = {{getenv "MARIADB_INNODB_LOG_BUFFER_SIZE" "256K"}}
+query_cache_size=0
+max_connections=10
+key_buffer_size = {{getenv "MARIADB_KEY_BUFFER_SIZE" "8"}}
+thread_cache_size=0
+host_cache_size=0
+innodb_ft_cache_size=1600000
+innodb_ft_total_cache_size=32000000
+
+# per thread or per operation settings
+thread_stack=131072
+sort_buffer_size = {{getenv "MARIADB_SORT_BUFFER_SIZE" "32K"}}
+read_buffer_size = {{getenv "MARIADB_READ_BUFFER_SIZE" "8200"}}
+read_rnd_buffer_size = {{getenv "MARIADB_READ_RND_BUFFER_SIZE" "8200"}}
+max_heap_table_size=16K
+tmp_table_size=1K
+bulk_insert_buffer_size=0
+join_buffer_size=128
+net_buffer_length = {{getenv "MARIADB_NET_BUFFER_SIZE" "1K"}}
+innodb_sort_buffer_size=64K
+
 max_allowed_packet = {{getenv "MARIADB_MAX_ALLOWED_PACKET" "16M"}}
 table_open_cache = {{getenv "MARIADB_TABLE_OPEN_CACHE" "64"}}
-sort_buffer_size = {{getenv "MARIADB_SORT_BUFFER_SIZE" "20M"}}
-net_buffer_length = {{getenv "MARIADB_NET_BUFFER_SIZE" "8K"}}
-read_buffer_size = {{getenv "MARIADB_READ_BUFFER_SIZE" "256K"}}
-read_rnd_buffer_size = {{getenv "MARIADB_READ_RND_BUFFER_SIZE" "512K"}}
-myisam_sort_buffer_size = {{getenv "MARIADB_MYISAM_SORT_BUFFER_SIZE" "8M"}}
+myisam_sort_buffer_size = {{getenv "MARIADB_MYISAM_SORT_BUFFER_SIZE" "1M"}}
 
 tmpdir = /tmp
 datadir = /var/lib/mysql
@@ -46,9 +68,9 @@ server-id = {{getenv "MARIADB_SERVER_ID" "1"}}
 innodb_data_home_dir = /var/lib/mysql
 innodb_data_file_path = {{getenv "MARIADB_INNODB_DATA_FILE_PATH" "ibdata1:10M:autoextend"}}
 innodb_log_group_home_dir = /var/lib/mysql
-innodb_buffer_pool_size = {{getenv "MARIADB_INNODB_BUFFER_POOL_SIZE" "24M"}}
+
 innodb_log_file_size = {{getenv "MARIADB_INNODB_LOG_FILE_SIZE" "5M"}}
-innodb_log_buffer_size = {{getenv "MARIADB_INNODB_LOG_BUFFER_SIZE" "8M"}}
+
 innodb_flush_log_at_trx_commit = {{getenv "MARIADB_INNODB_FLUSH_LOG_AT_TRX_COMMIT" "1"}}
 innodb_lock_wait_timeout = {{getenv "MARIADB_INNODB_LOCK_WAIT_TIMEOUT" "50"}}
 
@@ -61,10 +83,10 @@ max_allowed_packet = {{getenv "MARIADB_MAX_ALLOWED_PACKET" "16M"}}
 no-auto-rehash
 
 [myisamchk]
-key_buffer_size = {{getenv "MARIADB_KEY_BUFFER_SIZE" "20M"}}
-sort_buffer_size = {{getenv "MARIADB_SORT_BUFFER_SIZE" "20M"}}
-read_buffer = {{getenv "MARIADB_READ_BUFFER" "2M"}}
-write_buffer = {{getenv "MARIADB_WRITE_BUFFER" "2M"}}
+key_buffer_size = {{getenv "MARIADB_KEY_BUFFER_SIZE" "8"}}
+sort_buffer_size = {{getenv "MARIADB_SORT_BUFFER_SIZE" "23K"}}
+read_buffer = {{getenv "MARIADB_READ_BUFFER" "1M"}}
+write_buffer = {{getenv "MARIADB_WRITE_BUFFER" "1M"}}
 
 [mysqlhotcopy]
 interactive-timeout
