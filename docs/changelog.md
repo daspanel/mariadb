@@ -1,28 +1,34 @@
 # Changelog - admindaspanel / mariadb
 
-### mariadb-0.1.2
+### mariadb-0.1.1
 __Changes__
 
-- See changes in CHANGELOG.md
-- bumped to version 0.1.2
-- Added ports section to docker-compose.yml
+
+Released by N/A, Mon 07 Aug 2017 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+______________
+
+### 0.6.0
+__Changes__
+
+- bumped to version 0.6.0
+- Optimized memory usage for low memory container host.
 
 __Contributors__
 
 - Abner G Jacobsen
+- admindaspanel
 
-Released by Abner G Jacobsen, Thu 08 Sep 2016 -
-[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+Released by Abner G Jacobsen, Mon 07 Aug 2017 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/0.5.1...0.6.0#diff)
 ______________
 
-### mariadb-0.1.5
+### mariadb-0.1.7
 __Changes__
 
 - See changes in CHANGELOG.md
-- bumped to version 0.1.5
-- See changes in CHANGELOG.md
-- bumped to version 0.1.4
-- Code cleanup.
+- bumped to version 0.1.7
+- Put MariaDB running as user/group daspanel:daspanel.
 
 __Contributors__
 
@@ -47,6 +53,21 @@ Released by Abner G Jacobsen, Mon 02 Jan 2017 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
 ______________
 
+### mariadb-0.1.2
+__Changes__
+
+- See changes in CHANGELOG.md
+- bumped to version 0.1.2
+- Added ports section to docker-compose.yml
+
+__Contributors__
+
+- Abner G Jacobsen
+
+Released by Abner G Jacobsen, Thu 08 Sep 2016 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+______________
+
 ### mariadb-0.1.9
 __Changes__
 
@@ -60,45 +81,6 @@ __Contributors__
 - Abner G Jacobsen
 
 Released by Abner G Jacobsen, Wed 15 Mar 2017 -
-[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
-______________
-
-### 0.5.1
-__Changes__
-
-- bumped to version 0.5.1
-- Tenant user is created and password set in the first run of que container.
-- Used tenant root password when using mysql client in the console.
-
-__Contributors__
-
-- Abner G Jacobsen
-- admindaspanel
-
-Released by Abner G Jacobsen, Tue 01 Aug 2017 -
-[see the diff](https://github.com/admindaspanel/mariadb/compare/0.5.0...0.5.1#diff)
-______________
-
-### mariadb-0.1.1
-__Changes__
-
-
-Released by N/A, Tue 01 Aug 2017 -
-[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
-______________
-
-### mariadb-0.1.6
-__Changes__
-
-- See changes in CHANGELOG.md
-- bumped to version 0.1.6
-- Added missing file.
-
-__Contributors__
-
-- Abner G Jacobsen
-
-Released by Abner G Jacobsen, Thu 15 Dec 2016 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
 ______________
 
@@ -120,12 +102,12 @@ Released by Abner G Jacobsen, Tue 29 Nov 2016 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
 ______________
 
-### mariadb-0.1.7
+### mariadb-0.1.6
 __Changes__
 
 - See changes in CHANGELOG.md
-- bumped to version 0.1.7
-- Put MariaDB running as user/group daspanel:daspanel.
+- bumped to version 0.1.6
+- Added missing file.
 
 __Contributors__
 
@@ -133,6 +115,39 @@ __Contributors__
 
 Released by Abner G Jacobsen, Thu 15 Dec 2016 -
 [see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+______________
+
+### mariadb-0.1.5
+__Changes__
+
+- See changes in CHANGELOG.md
+- bumped to version 0.1.5
+- See changes in CHANGELOG.md
+- bumped to version 0.1.4
+- Code cleanup.
+
+__Contributors__
+
+- Abner G Jacobsen
+
+Released by Abner G Jacobsen, Thu 15 Dec 2016 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/...#diff)
+______________
+
+### 0.5.1
+__Changes__
+
+- See changes in CHANGELOG.md
+- bumped to version 0.5.1
+- Tenant user is created and password set in the first run of que container.
+- Used tenant root password when using mysql client in the console.
+
+__Contributors__
+
+- Abner G Jacobsen
+
+Released by Abner G Jacobsen, Tue 01 Aug 2017 -
+[see the diff](https://github.com/admindaspanel/mariadb/compare/0.5.0...0.5.1#diff)
 ______________
 
 ### 0.5.0
